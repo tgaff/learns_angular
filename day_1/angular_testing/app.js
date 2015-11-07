@@ -1,4 +1,22 @@
-var app = angular.module("myApp", []);
+var app = angular.module("myApp", ["ngRoute"]);
+
+
+app.config(["$routeProvider", function($routeProvider) {
+    $routeProvider
+        .when("/page1", {
+            templateUrl: "templates/page1.html",
+            controller: "testCtrl"
+        })
+        .when("/page2/:id", {
+          templateUrl: "templates/page2.html",
+          controller: 'test2Ctrl'
+        })
+        .otherwise({
+            redirectTo: "/page1"
+        });
+}]);
+
+
 
 app.controller("testCtrl", function($scope, $http) {
   $scope.userText = "hello world";
@@ -57,3 +75,12 @@ app.controller("testCtrl", function($scope, $http) {
   getUsers();
 
 });
+
+
+
+app.controller("test2Ctrl", function($scope, $routeParams) {
+  $scope.memoText = "Feel free to write a memo";
+  $scope.id = $routeParams.id;
+});
+
+

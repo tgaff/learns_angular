@@ -4,52 +4,9 @@
 <html ng-app='myApp'>
 <head>
 </head>
-<body ng-controller="testCtrl">
-  <input type="text" ng-model="userText" />
+<body>
 
-  <div>
-    {{userText}}
-  </div>
-
-
-  <table>
-    <thead>
-      <th>firstname</th>
-      <th>lastname</th>
-      <th>age</th>
-      <th>username</th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="user in users">
-        <td>{{user.firstname}}</td>
-        <td>{{user.lastname}}</td>
-        <td>{{user.age}}</td>
-        <td>{{user.username}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <div>
-    <div>
-      <div>First name</div>
-      <div><input type="text" placeholder="first name" ng-model='userData.firstname'/></div>
-    </div>
-
-    <div>
-      <div>Last name</div>
-      <div><input type="text" placeholder="last name" ng-model='userData.lastname' /></div>
-    </div>
-    <div>
-      <div>Age</div>
-      <div><input type="text" placeholder="age" ng-model='userData.age'/></div>
-    </div>
-    <div>
-      <div>username</div>
-      <div><input type="text" placeholder="username" ng-model='userData.username'/></div>
-    </div>
-    <div>
-      <button type="button" ng-click="submitUser(firstname, lastname, age, username);">submit</button>
-  </div>
-  <button style="position:fixed; bottom: {{y}}; right: 1000;">yo</button>
+  <div ng-view></div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
   <script src="https://code.angularjs.org/1.4.7/angular-route.js"></script>
