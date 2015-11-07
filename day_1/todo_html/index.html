@@ -29,7 +29,7 @@
 
 <div id="todo-list" class="small-container">
 	<ol>
-    <li class='{{todo.status}}' ng-repeat="todo in todos" ng-click="toggleComplete(todo);">{{todo.body}}<a href="#" ng-click="deleteTodo(todo);">Delete</a></li>
+    <li ng-class='todo.status' ng-repeat="todo in todos" ng-click="toggleComplete(todo);">{{todo.body}}<a href="#" ng-click="deleteTodo($event, todo);">Delete</a></li>
 	</ol>
 </div>
 

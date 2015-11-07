@@ -27,7 +27,8 @@ app.controller("todosController", function($scope) {
     $scope.persist();
   };
 
-  $scope.deleteTodo = function(todo) {
+  $scope.deleteTodo = function(event, todo) {
+    event.preventDefault();
     console.log('delete');
     var index = $scope.todos.indexOf(todo);
     $scope.todos.splice(index, 1);
