@@ -1,6 +1,6 @@
   <input type="text" ng-model="userText" />
 
-  <div>
+  <div class=''>
     {{userText}}
   </div>
 
@@ -13,7 +13,7 @@
       <th>username</th>
     </thead>
     <tbody>
-      <tr ng-repeat="user in users">
+      <tr ng-repeat="user in users" class='scale-fade animate'>
         <td>{{user.firstname}}</td>
         <td>{{user.lastname}}</td>
         <td>{{user.age}}</td>

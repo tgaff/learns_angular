@@ -3,14 +3,15 @@
 <!-- html tag with angular enabling directive -->
 <html ng-app='myApp'>
 <head>
+<link href="animate.css" rel='stylesheet'>
 </head>
 <body>
 
-  <div ng-view></div>
+  <div ng-view class='rotate-in'></div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
   <script src="https://code.angularjs.org/1.4.7/angular-route.js"></script>
-
+  <script src="https://code.angularjs.org/1.4.7/angular-animate.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
