@@ -75,7 +75,10 @@ app.controller("wineController", function($scope, $routeParams, $location, Wine)
   };
   $scope.deleteWine = function() {
     console.log('destroy ', $scope.wineID);
-    Wine.destroy({id: $scope.wineID});
+    Wine.delete({id: $scope.wineID}, function() {
+      console.log('destroyed');
+      $location.path('/');
+    });
   };
   getWine();
 });
