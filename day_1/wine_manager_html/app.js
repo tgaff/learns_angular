@@ -54,28 +54,28 @@ app.controller("wineController", function($scope, $routeParams, $location, Wine)
   $scope.wineID = $routeParams.id;
   var getWine = function() {
     console.log('getting wine ', $scope.wineID);
-    Wine.getOne($scope.wineID)
-      .success(function(wine) {
+    Wine.get({ id: $scope.wineID }, function(wine) {
         $scope.wine = wine;
-      })
-      .error(function(data) {
+      }, function() {
         alert('failed to get wine with id ', $scope.wineID);
-      });
+      }
+    );
   };
 
   $scope.updateWine = function() {
     console.log('updateWine()');
-    Wine.update($scope.wineID, $scope.wine)
-      .success(function(wine) {
+    Wine.update( { id: $scope.wineID }, $scope.wine,
+      function(wine) {
         console.log('it worked');
         $location.path('/');
 
-      })
-      .error(function() {
+      }, function() {
         alert('failed to save');
       });
   };
-
-
+  $scope.deleteWine = function() {
+    console.log('destroy ', $scope.wineID);
+    Wine.destroy({id: $scope.wineID});
+  };
   getWine();
 });
