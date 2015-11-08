@@ -4,7 +4,8 @@ var app = angular.module("myApp", ["ngRoute", 'ngAnimate', 'ngResource']);
 app.directive("testDirective", function() {
   return {
     templateUrl: 'templates/directives/test-dir.html',
-    controller: 'directiveCtrl'
+    controller: 'directiveCtrl',
+    restrict: 'A' // A = attribute , E = element, C = class
   };
 });
 
