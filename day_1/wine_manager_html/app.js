@@ -1,4 +1,4 @@
-var app = angular.module("wineManager", ['ngRoute', 'ngAnimate']);
+var app = angular.module("wineManager", ['ngRoute', 'ngAnimate', 'ngResource']);
 
 app.config(["$routeProvider", function($routeProvider) {
     $routeProvider
@@ -15,54 +15,33 @@ app.config(["$routeProvider", function($routeProvider) {
         });
 }]);
 
-app.factory('Wine', function($http) {
-  var factory = {};
-
-  factory.getAll = function() {
-    return $http.get('http://daretodiscover.herokuapp.com/wines');
-  }
-  factory.save = function(wineData) {
-    return $http.post('http://daretodiscover.herokuapp.com/wines', wineData);
-  };
-
-  factory.getOne = function(id) {
-    return $http.get('http://daretodiscover.herokuapp.com/wines/' + id);
-  };
-
-  factory.update = function(id,wineData) {
-    return $http.put('http://daretodiscover.herokuapp.com/wines/' + id, wineData);
-  };
-  return factory;
+app.factory('Wine', function($resource) {
+  return $resource('http://daretodiscover.herokuapp.com/wines/:id',
+                   { id: '@id'},
+                   {  update: { method: 'PUT'} }
+  );
 });
-
-
 
 
 app.controller("winesController", function($scope, Wine) {
   console.log('ok');
   var updateWines = function() {
-      Wine.getAll()
-      .success(function(data) {
+      Wine.query(function(data) {
         $scope.wines = data;
+      }, function() {
+        alert('cant get the wines');
       })
-      .error(function() {
-        alert('failed to retrieve data');
-      });
   };
 
 
   $scope.createWine = function() {
     console.log($scope.newWine);
-    Wine.save($scope.newWine)
-      .success(function(data) {
+    Wine.save($scope.newWine, function(data) {
         console.log('received: ', data);
         updateWines();
-      })
-      .error(function(data) {
+      }, function() {
         alert('failed to save');
       });
-
-
   };
   // on initialization
   updateWines();
