@@ -25,7 +25,7 @@ app.factory('Wine', function($http) {
     return $http.post('http://daretodiscover.herokuapp.com/wines', wineData);
   };
 
-  factory.getById = function(id) {
+  factory.getOne = function(id) {
     return $http.get('http://daretodiscover.herokuapp.com/wines/' + id);
   };
 
@@ -75,7 +75,7 @@ app.controller("wineController", function($scope, $routeParams, $location, Wine)
   $scope.wineID = $routeParams.id;
   var getWine = function() {
     console.log('getting wine ', $scope.wineID);
-    Wine.getById($scope.wineID)
+    Wine.getOne($scope.wineID)
       .success(function(wine) {
         $scope.wine = wine;
       })
