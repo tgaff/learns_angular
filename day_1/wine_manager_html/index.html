@@ -8,121 +8,12 @@
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
+  <link rel='stylesheet' href="animate.css">
 	<link rel="stylesheet" href="style.css" />
 </head>
-<body data-ng-controller='winesController'>
+<body>
 
-<div class="container">
-	<div class="margin-top-20">
-		<a href="#" data-toggle="modal" data-target="#add-wine-modal" class="btn btn-primary">Add New Wine</a>
-	</div>
-
-  <!-- Many wines-->
-	<div class="row margin-top-20 wine-container" data-ng-repeat='wine in wines'>
-		<div class="col-sm-3">
-      <img src="{{wine.picture}}" class="img-responsive" />
-		</div>
-		<div class="col-sm-9">
-			<div class="margin-top-20">
-        <span class="bold">Name: </span><span>{{wine.name}}</span>
-			</div>
-			<div>
-        <span class="bold">Year: </span><span>{{wine.year}}</span>
-			</div>
-			<div>
-        <span class="bold">Grapes: </span><span>{{wine.grapes}}</span>
-			</div>
-			<div>
-        <span class="bold">Country: </span><span>{{wine.country}}</span>
-			</div>
-			<div>
-        <span class="bold">Region: </span><span>{{wine.region}}</span>
-			</div>
-			<div>
-        <span class="bold">Price: </span><span>{{wine.price}}</span>
-			</div>
-			<div>
-				<span class="bold">Description: </span>
-			</div>
-			<div class="margin-top-10">
-			  {{ wine.description }}
-      </div>
-			<div class="margin-top-20">
-				<a href="#" class="btn btn-default">Edit Wine</a>
-			</div>
-		</div>
-	</div>
-	<!--/ many Wines-->
-
-</div>
-
-<!--Add Wine Modal-->
-<div id="add-wine-modal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Add New Wine</h4>
-			</div>
-			<div class="modal-body">
-				<div class="bold">
-					Name
-				</div>
-				<div class="margin-top-20">
-					<input type="text" class="form-control" data-ng-model="newWine.name" />
-				</div>
-				<div class="bold margin-top-20">
-					Year
-				</div>
-				<div class="margin-top-20">
-					<input type="text" class="form-control" data-ng-model="newWine.year" />
-				</div>
-				<div class="bold margin-top-20">
-					Grapes
-				</div>
-				<div class="margin-top-20">
-					<input type="text" class="form-control" data-ng-model="newWine.grapes" />
-				</div>
-				<div class="bold margin-top-20">
-					Country
-				</div>
-				<div class="margin-top-20">
-					<input type="text" class="form-control" data-ng-model="newWine.country" />
-				</div>
-				<div class="bold margin-top-20">
-					Region
-				</div>
-				<div class="margin-top-20">
-					<input type="text" class="form-control" data-ng-model="newWine.region" />
-				</div>
-				<div class="bold margin-top-20">
-					Price
-				</div>
-				<div class="margin-top-20">
-					<input type="text" class="form-control" data-ng-model="newWine.price" />
-				</div>
-				<div class="bold margin-top-20">
-					Picture
-				</div>
-				<div class="margin-top-20">
-					<input type="text" class="form-control" data-ng-model="newWine.picture" />
-				</div>
-				<div class="bold margin-top-20">
-					Description
-				</div>
-				<div class="margin-top-20">
-					<textarea class="form-control" data-ng-model="newWine.description"></textarea>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="createWine();">Save Wine</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!--/Add Wine Modal-->
+<div ng-view class='slide-right'></div>
 
 <!--jQuery-->
 <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
@@ -133,6 +24,9 @@
 <!-- angular -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
+<script src="https://code.angularjs.org/1.4.7/angular-route.js"></script>
+<script src="https://code.angularjs.org/1.4.7/angular-animate.min.js"></script>
 <script src="app.js"></script>
 
 </body>
