@@ -1,5 +1,30 @@
 var app = angular.module("myApp", ["ngRoute", 'ngAnimate']);
 
+// shared with anything inside 'myApp'
+app.factory('testFactory', function() {
+  var factory = {};
+
+  factory.helloWorld = function() {
+    alert('Hello world ');
+  };
+
+  return factory;
+});
+
+
+app.factory('User', function($http) {
+  factory = {};
+  factory.getAll = function() {
+    // return a promise; controller code must resolve the promise
+    return $http.get("http://daretodiscover.herokuapp.com/users");
+  };
+
+  factory.save = function(user) {
+    return $http.post("http://daretodiscover.herokuapp.com/users", user);
+  };
+
+  return factory;
+});
 
 app.config(["$routeProvider", function($routeProvider) {
     $routeProvider
@@ -18,12 +43,14 @@ app.config(["$routeProvider", function($routeProvider) {
 
 
 
-app.controller("testCtrl", function($scope, $http) {
+app.controller("testCtrl", function($scope, testFactory, User) {
   $scope.userText = "hello world";
+
+ testFactory.helloWorld();
 
   var getUsers = function() {
     // promises
-    $http.get("http://daretodiscover.herokuapp.com/users")
+    User.getAll()
       .success( function(users) {
         console.log(users);
         $scope.users = users;
@@ -59,7 +86,7 @@ app.controller("testCtrl", function($scope, $http) {
 
     console.log($scope.userData);
 
-    $http.post("http://daretodiscover.herokuapp.com/users", $scope.userData)
+    User.save($scope.userData)
       .success( function(user) {
         //console.log('users', user);
         //$scope.users.push(user);
