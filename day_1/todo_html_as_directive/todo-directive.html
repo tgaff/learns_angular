@@ -1,0 +1,22 @@
+
+<div class="small-container well">
+	<div class="bold">
+		What do you want to do today?
+  {{test}}
+	</div>
+	<div class="margin-top-20">
+		<input type="text" class="form-control" placeholder="Your todo..." ng-model='newTodoInput' />
+	</div>
+
+	<div class="margin-top-20">
+		<button type="button" id="submit-todo" class="btn btn-primary" ng-click='addTodo();'>Submit Todo</button>
+	</div>
+</div>
+
+<div id="todo-list" class="small-container">
+	<ol>
+    <li ng-class='todo.status' ng-repeat="todo in todos" ng-click="toggleComplete(todo);">{{todo.body}}<a href="#" ng-click="deleteTodo($event, todo);">Delete</a></li>
+	</ol>
+</div>
+
+

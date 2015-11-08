@@ -1,5 +1,15 @@
 var app = angular.module("todoApp", []);
 
+app.directive('todosDirective', function() {
+
+  return {
+    templateUrl: 'todo-directive.html',
+    controller: 'todosController',
+    restrict: 'A' // A = attribute , E = element, C = class
+  };
+});
+
+
 app.controller("todosController", function($scope) {
   $scope.test = 'angular connected';
 
