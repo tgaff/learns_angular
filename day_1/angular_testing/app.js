@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ["ngRoute", 'ngAnimate']);
+var app = angular.module("myApp", ["ngRoute", 'ngAnimate', 'ngResource']);
 
 // shared with anything inside 'myApp'
 app.factory('testFactory', function() {
@@ -12,18 +12,27 @@ app.factory('testFactory', function() {
 });
 
 
-app.factory('User', function($http) {
-  factory = {};
-  factory.getAll = function() {
-    // return a promise; controller code must resolve the promise
-    return $http.get("http://daretodiscover.herokuapp.com/users");
-  };
+// app.factory('User', function($http) {
+  // factory = {};
+  // factory.getAll = function() {
+    // // return a promise; controller code must resolve the promise
+    // return $http.get("http://daretodiscover.herokuapp.com/users");
+  // };
 
-  factory.save = function(user) {
-    return $http.post("http://daretodiscover.herokuapp.com/users", user);
-  };
+  // factory.save = function(user) {
+    // return $http.post("http://daretodiscover.herokuapp.com/users", user);
+  // };
 
-  return factory;
+  // return factory;
+// });
+
+app.factory('User', function($resource) {
+  return $resource('http://daretodiscover.herokuapp.com/users/:id',
+                   { id: '@id'},
+                   {
+                      update: { method: 'PUT' }
+                   }
+  );
 });
 
 app.config(["$routeProvider", function($routeProvider) {
@@ -50,14 +59,20 @@ app.controller("testCtrl", function($scope, testFactory, User) {
 
   var getUsers = function() {
     // promises
-    User.getAll()
-      .success( function(users) {
-        console.log(users);
-        $scope.users = users;
-      })
-      .error( function() {
-        alert('error getting users');
-      });
+    // User.getAll()
+      // .success( function(users) {
+        // console.log(users);
+        // $scope.users = users;
+      // })
+      // .error( function() {
+        // alert('error getting users');
+      // });
+    User.query(function(users) {
+      $scope.users = users;
+    }, function() {
+      alert("error getting users");
+    });
+
   };
   $scope.x = 300;
   $scope.y = 200;
@@ -86,15 +101,23 @@ app.controller("testCtrl", function($scope, testFactory, User) {
 
     console.log($scope.userData);
 
-    User.save($scope.userData)
-      .success( function(user) {
-        //console.log('users', user);
-        //$scope.users.push(user);
-        getUsers();
-      })
-      .error( function() {
-        alert('oh no!  submit failed');
-      });
+    // User.save($scope.userData)
+      // .success( function(user) {
+        // //console.log('users', user);
+        // //$scope.users.push(user);
+        // getUsers();
+      // })
+      // .error( function() {
+        // alert('oh no!  submit failed');
+      // });
+    User.save($scope.userData, function() {
+      getUsers();
+    }, function() {
+      alert("error!");
+    });
+    // resource also makes this possible
+    // var newUser = new User($scope.userData);
+    // newUser.save();
 
   };
 
