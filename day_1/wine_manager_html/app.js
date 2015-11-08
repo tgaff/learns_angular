@@ -15,13 +15,33 @@ app.config(["$routeProvider", function($routeProvider) {
         });
 }]);
 
+app.factory('Wine', function($http) {
+  var factory = {};
+
+  factory.getAll = function() {
+    return $http.get('http://daretodiscover.herokuapp.com/wines');
+  }
+  factory.save = function(wineData) {
+    return $http.post('http://daretodiscover.herokuapp.com/wines', wineData);
+  };
+
+  factory.getById = function(id) {
+    return $http.get('http://daretodiscover.herokuapp.com/wines/' + id);
+  };
+
+  factory.update = function(id,wineData) {
+    return $http.put('http://daretodiscover.herokuapp.com/wines/' + id, wineData);
+  };
+  return factory;
+});
 
 
 
-app.controller("winesController", function($scope, $http) {
+
+app.controller("winesController", function($scope, Wine) {
   console.log('ok');
   var updateWines = function() {
-    $http.get('http://daretodiscover.herokuapp.com/wines')
+      Wine.getAll()
       .success(function(data) {
         $scope.wines = data;
       })
@@ -33,7 +53,7 @@ app.controller("winesController", function($scope, $http) {
 
   $scope.createWine = function() {
     console.log($scope.newWine);
-    $http.post('http://daretodiscover.herokuapp.com/wines', $scope.newWine)
+    Wine.save($scope.newWine)
       .success(function(data) {
         console.log('received: ', data);
         updateWines();
@@ -50,12 +70,12 @@ app.controller("winesController", function($scope, $http) {
 });
 
 
-app.controller("wineController", function($scope, $http, $routeParams, $location) {
+app.controller("wineController", function($scope, $routeParams, $location, Wine) {
 
   $scope.wineID = $routeParams.id;
   var getWine = function() {
     console.log('getting wine ', $scope.wineID);
-    $http.get('http://daretodiscover.herokuapp.com/wines/' + $scope.wineID)
+    Wine.getById($scope.wineID)
       .success(function(wine) {
         $scope.wine = wine;
       })
@@ -66,7 +86,7 @@ app.controller("wineController", function($scope, $http, $routeParams, $location
 
   $scope.updateWine = function() {
     console.log('updateWine()');
-    $http.put('http://daretodiscover.herokuapp.com/wines/' + $scope.wineID, $scope.wine)
+    Wine.update($scope.wineID, $scope.wine)
       .success(function(wine) {
         console.log('it worked');
         $location.path('/');
