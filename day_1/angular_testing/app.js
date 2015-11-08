@@ -1,5 +1,22 @@
 var app = angular.module("myApp", ["ngRoute", 'ngAnimate', 'ngResource']);
 
+
+app.directive("testDirective", function() {
+  return {
+    templateUrl: 'templates/directives/test-dir.html',
+    controller: 'directiveCtrl'
+  };
+});
+
+
+
+
+
+
+
+
+
+
 // shared with anything inside 'myApp'
 app.factory('testFactory', function() {
   var factory = {};
@@ -49,6 +66,13 @@ app.config(["$routeProvider", function($routeProvider) {
             redirectTo: "/page1"
         });
 }]);
+
+// this controller is tied to our new DIRECTIVE above
+app.controller("directiveCtrl", function($scope) {
+  $scope.sayHello = function() {
+    alert('hello');
+  }
+});
 
 
 
