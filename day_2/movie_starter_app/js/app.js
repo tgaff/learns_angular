@@ -2,6 +2,22 @@
 //
 var app = angular.module("movieApp", []);
 
+// borrowed from: http://stackoverflow.com/a/17364716/1760776
+app.directive('ngEnter', function() {
+  return function(scope, element, attrs) {
+    element.bind("keydown keypress", function(event) {
+      if(event.which === 13) {
+        scope.$apply(function(){
+          scope.$eval(attrs.ngEnter, {'event': event});
+        });
+
+        event.preventDefault();
+      }
+    });
+  };
+});
+
+
 
 app.directive("moviesDirective", function() {
   console.log('directive');
@@ -11,7 +27,6 @@ app.directive("moviesDirective", function() {
     restrict: 'A' // A = attribute , E = element, C = class
   };
 });
-
 
 
 
