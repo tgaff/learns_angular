@@ -5,7 +5,7 @@
 
 	<div class="row">
 		<div class="col-sm-12">
-			<input id="movie-title" class="form-control" type="text" placeholder="Movie Title" data-ng-model='searchQuery' data-ng-enter='search()' />
+			<input id="movie-title" class="form-control" type="text" placeholder="Movie Title" data-ng-model='searchQuery' data-ng-enter='search();' />
 		</div>
 	</div>
 
@@ -63,6 +63,13 @@
           <strong>Plot: </strong>{{movie.Plot}}
 				</div>
 			</div>
+
+      <div class="row margin-top-20">
+				<div class="col-sm-12">
+          <button class="btn pull-right" data-ng-click='goBack();'>Go back</button>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>

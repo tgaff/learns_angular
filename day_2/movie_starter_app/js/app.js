@@ -7,6 +7,8 @@ app.directive('ngEnter', function() {
   return function(scope, element, attrs) {
     element.bind("keydown keypress", function(event) {
       if(event.which === 13) {
+        console.log(scope);
+        console.log(attrs);
         scope.$apply(function(){
           scope.$eval(attrs.ngEnter, {'event': event});
         });
@@ -53,5 +55,8 @@ app.controller('moviesCtrl', function($scope, $http) {
     fetchMovie($scope.searchQuery);
   };
 
-
+  $scope.goBack = function() {
+    $scope.searchQuery = '';
+    $scope.movie = {};
+  };
 });
