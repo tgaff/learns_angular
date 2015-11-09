@@ -31,7 +31,6 @@ app.directive("moviesDirective", function() {
 });
 
 
-
 app.controller('moviesCtrl', function($scope, $http) {
   console.log('yay controller');
   $scope.movie = {};
@@ -39,10 +38,16 @@ app.controller('moviesCtrl', function($scope, $http) {
   var fetchMovie = function(search) {
     $http.get('http://omdbapi.com/?t=' + search)
     .success(function(movie) {
+      console.log('got ', movie);
+      console.log('has property title? ', $scope.movie.hasOwnProperty('Title'));
+
+      if (movie.Error) {
+        console.log('movie is error');
+        $scope.searchQuery = '';
+        $('#search-input-box').effect('shake');
+      } else {
        $scope.movie = movie;
-       console.log('got ', movie);
-       // showMovie;
-       console.log('has property title? ', $scope.movie.hasOwnProperty('Title'));
+      }
     })
     .error(function() {
       alert('couldnt find movie ' + search);
